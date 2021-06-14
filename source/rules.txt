@@ -1,1 +1,1 @@
-alert tcp 1.1.1.1/32 54,89,25 -> 8.8.8.8 :53 (msg:"DNS to google";tos:15)
+alert tcp any any -> any 80 (msg:"bonjour c'est mr kho bm")

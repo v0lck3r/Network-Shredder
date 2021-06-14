@@ -127,3 +127,4 @@ def readrules(file):
 				raise ValueError("Invalid rule : a rule must include mandatory elements : action protocol src_ips src_ports -> dst_ips dst_ports")
 			rulesList.append(d)
 	return rulesList
+

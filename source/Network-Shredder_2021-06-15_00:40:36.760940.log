@@ -1,0 +1,3 @@
+WARNING:scapy.runtime:Calling str(pkt) on Python 3 makes no sense!
+WARNING:scapy.runtime:Calling str(pkt) on Python 3 makes no sense!
+WARNING:scapy.runtime:more Calling str(pkt) on Python 3 makes no sense!

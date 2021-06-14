@@ -1,6 +1,7 @@
 from threading import Thread
 from scapy.all import *
 from functions import *
+
 class Sniffer(Thread):
 	
 
@@ -20,10 +21,10 @@ class Sniffer(Thread):
 
 			matched = match(rule, packet)
 			if (matched):
-				message = rule.getMatchedMessage(packet)
+				message = log(rule, packet)
 				logging.warning(message)
 
-				print(rule.getMatchedPrintMessage(packet))
+				print(colored(message,"green"))
 
 
 	def run(self):

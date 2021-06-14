@@ -1,0 +1,40 @@
+WARNING:root:ALERT"bonjour c'est mr kho bm"
+Rule Matched: 
+{'action': 'alert', 'protocol': 'tcp', 'SrcIP': IPv4Network('0.0.0.0/0'), 'SrcPorts': 'any', 'DstIP': IPv4Network('0.0.0.0/0'), 'DstPorts': 80, 'msg': '"bonjour c\'est mr kho bm"'}
+
+WARNING:root:ALERT"bonjour c'est mr kho bm"
+Rule Matched: 
+{'action': 'alert', 'protocol': 'tcp', 'SrcIP': IPv4Network('0.0.0.0/0'), 'SrcPorts': 'any', 'DstIP': IPv4Network('0.0.0.0/0'), 'DstPorts': 80, 'msg': '"bonjour c\'est mr kho bm"'}
+
+WARNING:root:ALERT"bonjour c'est mr kho bm"
+Rule Matched: 
+{'action': 'alert', 'protocol': 'tcp', 'SrcIP': IPv4Network('0.0.0.0/0'), 'SrcPorts': 'any', 'DstIP': IPv4Network('0.0.0.0/0'), 'DstPorts': 80, 'msg': '"bonjour c\'est mr kho bm"'}
+
+WARNING:root:ALERT"bonjour c'est mr kho bm"
+Rule Matched: 
+{'action': 'alert', 'protocol': 'tcp', 'SrcIP': IPv4Network('0.0.0.0/0'), 'SrcPorts': 'any', 'DstIP': IPv4Network('0.0.0.0/0'), 'DstPorts': 80, 'msg': '"bonjour c\'est mr kho bm"'}
+
+WARNING:root:ALERT"bonjour c'est mr kho bm"
+Rule Matched: 
+{'action': 'alert', 'protocol': 'tcp', 'SrcIP': IPv4Network('0.0.0.0/0'), 'SrcPorts': 'any', 'DstIP': IPv4Network('0.0.0.0/0'), 'DstPorts': 80, 'msg': '"bonjour c\'est mr kho bm"'}
+
+WARNING:root:ALERT"bonjour c'est mr kho bm"
+Rule Matched: 
+{'action': 'alert', 'protocol': 'tcp', 'SrcIP': IPv4Network('0.0.0.0/0'), 'SrcPorts': 'any', 'DstIP': IPv4Network('0.0.0.0/0'), 'DstPorts': 80, 'msg': '"bonjour c\'est mr kho bm"'}
+
+WARNING:root:ALERT"bonjour c'est mr kho bm"
+Rule Matched: 
+{'action': 'alert', 'protocol': 'tcp', 'SrcIP': IPv4Network('0.0.0.0/0'), 'SrcPorts': 'any', 'DstIP': IPv4Network('0.0.0.0/0'), 'DstPorts': 80, 'msg': '"bonjour c\'est mr kho bm"'}
+
+WARNING:root:ALERT"bonjour c'est mr kho bm"
+Rule Matched: 
+{'action': 'alert', 'protocol': 'tcp', 'SrcIP': IPv4Network('0.0.0.0/0'), 'SrcPorts': 'any', 'DstIP': IPv4Network('0.0.0.0/0'), 'DstPorts': 80, 'msg': '"bonjour c\'est mr kho bm"'}
+
+WARNING:root:ALERT"bonjour c'est mr kho bm"
+Rule Matched: 
+{'action': 'alert', 'protocol': 'tcp', 'SrcIP': IPv4Network('0.0.0.0/0'), 'SrcPorts': 'any', 'DstIP': IPv4Network('0.0.0.0/0'), 'DstPorts': 80, 'msg': '"bonjour c\'est mr kho bm"'}
+
+WARNING:root:ALERT"bonjour c'est mr kho bm"
+Rule Matched: 
+{'action': 'alert', 'protocol': 'tcp', 'SrcIP': IPv4Network('0.0.0.0/0'), 'SrcPorts': 'any', 'DstIP': IPv4Network('0.0.0.0/0'), 'DstPorts': 80, 'msg': '"bonjour c\'est mr kho bm"'}
+
