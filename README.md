@@ -8,3 +8,4 @@ Network Shredder IDS
 - Web Application (Table (matched packet, rule))
 - Customize the options
 - Create the report
+- Customize the rules to detect attacks such as arp spoofing, ddos,...
