@@ -9,3 +9,4 @@ Network Shredder IDS
 - Customize the options
 - Create the report
 - Customize the rules to detect attacks such as arp spoofing, ddos,...
+- create a requirement file 
