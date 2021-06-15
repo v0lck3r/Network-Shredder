@@ -1,6 +1,6 @@
 # Network-Shredder
 Network Shredder IDS
-
+![](./source/static/logo.png)
 # TODO LIST
 
 + PCAP Mod : DONE
