@@ -1,6 +1,7 @@
 from ipaddress import *
 from termcolor import colored
-
+import sys
+#sys.tracebacklimit = 0
 
 def readrules(file):
 
@@ -94,7 +95,7 @@ def readrules(file):
 							p = int(temp[0])
 							if dst_ports[0]==":":
 								d["DstPorts"]={"range":[0,int(temp[0])]}
-							elif dst_ports[len(dst_ports-1)]==":":
+							elif dst_ports[len(dst_ports)-1]==":":
 								d["DstPorts"]={"range":[int(temp[0]),65535]}
 							valid_ports=True
 					elif "," in dst_ports:
@@ -116,11 +117,11 @@ def readrules(file):
 						options = temp[1].replace(')','')
 						options = options.split(';')
 						for option in options:
-							if option.split(":")[0].strip() not in ["msg","tos","len","offset","seq","ack","flags","http_request","content"]:
+							if option.split(":")[0].strip() not in ["msg","tos","ttl","offset","seq","ack","flags","http_request","content"]:
 								raise ValueError(colored("Invalid rule : incorrect option : '" + option.split(":")[0].strip() + "'.","red"))
-							elif option.split(":")[0].strip() in ["tos","len","offset","seq","ack"]:
+							elif option.split(":")[0].strip() in ["tos","ttl","offset","seq","ack"]:
 								var = int(option.split(":")[1].strip())
-							d[option.split(":")[0].strip()]=option.split(":")[1].strip()
+							d[option.split(":")[0].strip()]=option.split(":")[1].strip().replace('"','')
 					except:
 						raise ValueError(colored("Invalid rule : incorrect options.","red"))
 			else:

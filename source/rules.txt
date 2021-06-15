@@ -1,1 +1,2 @@
-alert tcp any any -> any 80 (msg:"bonjour c'est mr kho bm")
+alert udp any any -> any any (msg:"udp hhhhhh")
+alert tcp any any -> any any (msg:"tcp hhhhhh")

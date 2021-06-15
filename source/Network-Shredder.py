@@ -6,18 +6,27 @@ from scapy.all import *
 import logging
 from ReadRules import *
 from Sniffer import *
+import sys
+#sys.tracebacklimit = 0
+from subprocess import DEVNULL, STDOUT, check_call
 def main():
 
-	now = datetime.now()
+	now = datetime.datetime.now()
 	print_banner()
 	print("\n")
 	args = vars(args_parser())
+	arg = args_parser()
 	rules_file = args['file']
 	log_dir = args['logdir']
 	pcap_file = args['pcap']
+	interface = args['interface']
+	
+	if pcap_file != None and interface != None:
+		raise Exception(colored("[!] You can not use PCAP option for Live Detection !!","red"))
 	if log_dir==None:
 		log_dir='.'
-	logging.basicConfig(filename= log_dir+"/Network-Shredder_" + str(now).replace(' ','_') + '.log',level=logging.INFO)
+	filename = log_dir+"/Network-Shredder_" + str(now).replace(' ','_') + ".log"
+	logging.basicConfig(filename=filename , format='%(asctime)s %(name)-4s %(levelname)-4s %(message)s',level=logging.INFO)
 
 	print(colored("[+] Starting Network-Shreddering...", "green"))
 
@@ -27,31 +36,23 @@ def main():
 
 	print(colored("[+] Finished Processing Rules File "+rules_file+"...", "green"))
 
-	#we should add mods (if ....)
+	
+	if pcap_file == None:
+		sniffer = Sniffer(rules_list=rules_list,interface=interface,pcap_file=None)
+		sniffer.start()
 
-	sniffer = Sniffer(rules_list)
-	sniffer.start()
+	else:
+		sniffer = Sniffer(rules_list=rules_list,pcap_file=pcap_file,interface=None)
+		sniffer.start()
+	
 
-
-
-
-
-
-
-
-
-
-
-
+	if arg.web:
+		print(colored("[+] You Can Access The Web Interface Via : ","yellow")+colored("http://127.0.0.1:5000/logs","green"))
+		check_call(['/usr/bin/python3','web.py','-a',filename],stdout=DEVNULL, stderr=STDOUT)
+		
 
 
-#Make two mods, live IDS and PCAP file based!!
-"""
-Steps:
--
--
--
-"""
+
 def print_banner():
 	fig = Figlet(font="future")
 	banner = fig.renderText("Network Shredder")
@@ -67,6 +68,8 @@ def args_parser():
 	parser.add_argument('--pcap', help='PCAP file (Exclusive for PCAP Mod)')
 	parser.add_argument('file',  help='Rules file')
 	parser.add_argument('--logdir',  help='Log Directory (FULL PATH) e.g: /path/to/log/')
+	parser.add_argument('--interface', help='Sniff Interface (e.g: tun0)')
+	parser.add_argument('--web', help='Show Logs In Web Interface', action="store_true")
 	return parser.parse_args()
 
 main()

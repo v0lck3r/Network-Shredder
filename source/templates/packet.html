@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.42em;
+  color:#000000;
+  background-color:#1F2739;
+}
+
+h1 {
+  font-size:3em; 
+  font-weight: 300;
+  line-height:1em;
+  text-align: left;
+  color: #4DC3FA;
+}
+
+h2 {
+  font-size:1em; 
+  font-weight: 100;
+  text-align: left;
+  display: block;
+  line-height:1em;
+  padding-bottom: 2em;
+  color: #FB667A;
+}
+
+h2 a {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #FB667A;
+  text-decoration: none;
+}
+
+.blue { color: #185875; }
+.yellow { color: #FFF842; }
+
+.container th h1 {
+	  font-weight: bold;
+	  font-size: 0.95em;
+  text-align: center;
+  color: #51add6;
+}
+
+.container td {
+	  font-weight: normal;
+	  font-size: 1em;
+  -webkit-box-shadow: 0 2px 2px -2px #0E1119;
+	   -moz-box-shadow: 0 2px 2px -2px #0E1119;
+	        box-shadow: 0 2px 2px -2px #0E1119;
+}
+
+.container {
+	  text-align: center;
+	  overflow: hidden;
+	  width: 80%;
+	  margin: auto;
+  display: table;
+  padding: 0 0 8em 0;
+}
+
+.container td, .container th {
+	  padding-bottom: 2%;
+	  padding-top: 2%;
+}
+
+/* Background-color of the odd rows */
+.container tr:nth-child(odd) {
+	  background-color: #323C50;
+}
+
+/* Background-color of the even rows */
+.container tr:nth-child(even) {
+	  background-color: #2C3446;
+}
+
+.container th {
+	  background-color: #1F2739;
+}
+
+.container td:first-child { color: #000000;}
+
+.container tr:hover {
+   background-color: #464A52;
+-webkit-box-shadow: 0 6px 6px -6px #0E1119;
+	   -moz-box-shadow: 0 6px 6px -6px #0E1119;
+	        box-shadow: 0 6px 6px -6px #0E1119;
+}
+
+.container td:hover {
+  background-color: #bdbcb5;
+  color: #1c1b0f;
+  font-weight: bold;
+  
+  box-shadow: #99998e -1px 1px, #99998e -2px 2px, #99998e -3px 3px, #99998e -4px 4px, #99998e -5px 5px, #99998e -6px 6px;
+  transform: translate3d(6px, -6px, 0);
+  
+  transition-delay: 0s;
+	  transition-duration: 0.4s;
+	  transition-property: all;
+  transition-timing-function: line;
+}
+
+@media (max-width:800px) {
+.container td:nth-child(4),
+.container th:nth-child(4) { display: none; }
+}
+</style>
+</head>
+<body>
+	<h4>
+<img src="{{url_for('static', filename='logo.png')}}" width="200" height="200" style="float:left"/><br />
+<p style="float:left">
+<h1><span class="blue"></span>Network<span class="blue"></span> <span class="yellow">Shredder</span></h1>
+<h2 ><a>Details Of Packet Captured At {{l[0]}}</a></h2>
+<h2><a>For Further Details, Please Check Line {{index}} Of {{filename}}</a></h2></p>
+</h4>
+
+
+<table class="container" style="width: 90%;table-layout: auto;">
+	<thead>
+  <tr>
+    <th><h1>Name Of Datagram Field</h1></th>
+    <th><h1>Value Of Datagram Field</h1></th>
+  </tr>
+</thead>
+<tbody>
+  <tr style="background-color: #08fff7">
+    <td>Destination MAC</td>
+    <td>{{l[1]}}</td>
+  </tr>
+  <tr style="background-color: #08fff7">
+    <td>Source MAC</td>
+    <td>{{l[2]}}</td>
+  </tr>
+  <tr style="background-color: #c7de54">
+    <td>IP Version</td>
+    <td>{{l[3]}}</td>
+  </tr>
+  <tr style="background-color: #c7de54">
+    <td>Internet Header Length</td>
+    <td>{{l[4]}}</td>
+  </tr>
+  <tr style="background-color: #c7de54">
+    <td>Type Of Service</td>
+    <td>{{l[5]}}</td>
+  </tr>
+  <tr style="background-color: #c7de54">
+    <td>Total Length</td>
+    <td>{{l[6]}}</td>
+  </tr>
+  <tr style="background-color: #c7de54">
+    <td>IP Datagram Identifier</td>
+    <td>{{l[7]}}</td>
+  </tr>
+  <tr style="background-color: #c7de54">
+    <td>IP Flags</td>
+    <td>{{l[8]}}</td>
+  </tr>
+  <tr style="background-color: #c7de54">
+    <td>Fragment Offset</td>
+    <td>{{l[9]}}</td>
+  </tr>
+  <tr style="background-color: #c7de54">
+    <td>Time To Leave</td>
+    <td>{{l[10]}}</td>
+  </tr>
+  <tr style="background-color: #c7de54">
+    <td>Protocol</td>
+    <td>{{l[11]}}</td>
+  </tr>
+  <tr style="background-color: #c7de54">
+    <td>IP Checksum</td>
+    <td>{{l[12]}}</td>
+  </tr>
+  <tr style="background-color: #c7de54">
+    <td>Source IP</td>
+    <td>{{l[13]}}</td>
+  </tr>
+  <tr style="background-color: #c7de54">
+    <td>Destination IP</td>
+    <td>{{l[14]}}</td>
+  </tr>
+  {% if l[11] == 'tcp' %}
+  <tr style="background-color: #bf5bf5">
+    <td>Source Port</td>
+    <td>{{l[15]}}</td>
+  </tr>
+  <tr style="background-color: #bf5bf5">
+    <td>Destination Port</td>
+    <td>{{l[16]}}</td>
+  </tr>
+  <tr style="background-color: #bf5bf5">
+    <td>Sequence Number</td>
+    <td>{{l[17]}}</td>
+  </tr>
+  <tr style="background-color: #bf5bf5">
+    <td>Acknowledgment Number</td>
+    <td>{{l[18]}}</td>
+  </tr>
+  <tr style="background-color: #bf5bf5">
+    <td>Data Offset</td>
+    <td>{{l[19]}}</td>
+  </tr>
+  <tr style="background-color: #bf5bf5">
+    <td>Reserved</td>
+    <td>{{l[20]}}</td>
+  </tr>
+  <tr style="background-color: #bf5bf5">
+    <td>TCP Flags</td>
+    <td>{{l[21]}}</td>
+  </tr>
+  <tr style="background-color: #bf5bf5">
+    <td>Window</td>
+    <td>{{l[22]}}</td>
+  </tr>
+  <tr style="background-color: #bf5bf5">
+    <td>TCP Checksum</td>
+    <td>{{l[23]}}</td>
+  </tr>
+  {% elif l[11]=='udp' %}
+  <tr style="background-color: #bf5bf5">
+    <td>Source Port</td>
+    <td>{{l[15]}}</td>
+  </tr>
+  <tr style="background-color: #bf5bf5">
+    <td>Destination Port</td>
+    <td>{{l[16]}}</td>
+  </tr>
+  <tr style="background-color: #bf5bf5">
+    <td>UDP Length</td>
+    <td>{{l[17]}}</td>
+  </tr>
+  <tr style="background-color: #bf5bf5">
+    <td>UDP Checksum</td>
+    <td>{{l[18]}}</td>
+  </tr>
+  {% endif %}
+</tbody>
+</table>
+
+</body>
+</html>

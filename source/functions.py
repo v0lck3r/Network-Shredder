@@ -1,17 +1,16 @@
 from ipaddress import *
 from scapy.all import *
 from termcolor import colored
-HTTPcommands = ["GET", "HEAD", "POST", "PUT", "DELETE", "TRACE", "OPTIONS", "CONNECT", "PATCH"]
+import datetime
 
 def isHTTP(packet):
     if (TCP in packet and packet[TCP].payload):
-        data = str(packet[TCP].payload)
-        words = data.split('/')
-        if (len(words) >= 1 and words[0].rstrip() == "HTTP"):
+        http = str(packet[TCP].payload).split('/')
+        if (len(http) >= 1 and http[0].rstrip() == "HTTP"):
             return True
             
-        words = data.split(' ')
-        if (len(words) >= 1 and words[0].rstrip() in HTTPcommands):
+        method = str(packet[TCP].payload).split(' ')
+        if (len(method) >= 1 and method[0].rstrip() in ['HEAD', 'GET', 'CONNECT', 'OPTIONS', 'TRACE', 'POST', 'PUT', 'DELETE', 'PATCH']):
             return True
         else:
             return False
@@ -50,13 +49,14 @@ def checkIPs(rule, packet):
 def contains(a,b):
 	if a=="any":
 		return True
-	elif type(a)=="int":
+	elif type(a)==int:
 		return a==b
-	elif type(a)=="dict":
+	elif type(a)==dict:
 		if "range" in a.keys():
 			return a["range"][0]<= b and b <= a["range"][1]
 		elif "list" in a.keys():
-			return b in a["range"]
+			return b in a["list"]
+	return False
 
 def checkPorts(rule, packet):
 	check = False
@@ -68,32 +68,32 @@ def checkPorts(rule, packet):
 	elif TCP in packet:
 		srcPort = packet[TCP].sport
 		dstPort = packet[TCP].dport
-		if contains(rule["SrcPorts"],srcPort) and contains(rule["SrcPorts"],srcPort):
+		if contains(rule["SrcPorts"],srcPort) and contains(rule["DstPorts"],dstPort):
 			check = True
 	return check
 
 def checkOptions(rule, packet):
 	if "tos" in rule.keys():
 		if IP in packet:
-			if rule["tos"] != packet[IP].tos:
+			if rule["tos"] != str(packet[IP].tos):
 				return False
 		else:
 			return False
-	if "len" in rule.keys():
+	if "ttl" in rule.keys():
 		if IP in packet:
-			if rule["len"] != packet[IP].ihl:
+			if rule["ttl"] != str(packet[IP].ttl):
 				return False
 		else:
 			return False
 	if "seq" in rule.keys():
 		if IP in packet:
-			if rule["seq"] != packet[IP].seq:
+			if rule["seq"] != str(packet[IP].seq):
 				return False
 		else:
 			return False
 	if "ack" in rule.keys():
 		if IP in packet:
-			if rule["ack"] != packet[IP].tos:
+			if rule["ack"] != str(packet[IP].ack):
 				return False
 		else:
 			return False
@@ -105,13 +105,18 @@ def checkOptions(rule, packet):
 				packetFlags = packet[TCP].underlayer.sprint("%TCP.flags%")
 				if flag not in packetFlags:
 					return False
+	if "offset" in rule.keys():
+		if IP in packet:
+			if rule["offset"] != str(packet[IP].off):
+				return False
+		else:
+			return False
 	if "http_request" in rule.keys():
 		if not isHTTP(packet):
 			return False
 		elif TCP in packet and packet[TCP].payload:
-			data = str(packet[TCP].payload)
-			words = data.split(' ')
-			if len(words)< 1 or words[0] in rule["http_request"]:
+			http = str(packet[TCP].payload).split(' ')
+			if len(http)< 1 or http[0] in rule["http_request"]:
 				return False
 		else:
 			return False
@@ -128,11 +133,11 @@ def checkOptions(rule, packet):
 			return False
 	return True
 def log(rule, packet):
-	message = " ALERT:\t"
+	message = "ALERT:\t"
 	if "msg" in rule.keys():
-		message += rule["msg"]+"\n"
-	message += "Rule Matched: \n"+str(rule)+"\n"
-	message += "By Packet: \n"+packet.show(dump=True)+"\n"
+		message += rule["msg"]+":"
+	message += "\tRule Matched:"+str(rule)
+	message += "\tPacket:"+packet.show(dump=True).replace("\n",":").replace("       ","").replace("     ","")[:-1]
 	return message
 
 def console(rule, packet):
