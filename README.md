@@ -10,4 +10,4 @@ Network Shredder IDS
 - Create the report
 - Customize the rules to detect attacks such as arp spoofing, ddos,...
 - create a requirement file 
-- Quite mode in condole
++ Quite mode in condole : DONE
