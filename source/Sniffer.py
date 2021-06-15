@@ -6,13 +6,13 @@ import sys
 class Sniffer(Thread):
 	
 
-	def __init__(self, rules_list, interface, pcap_file):
+	def __init__(self, rules_list, interface, pcap_file, quiet):
 		Thread.__init__(self)
 		self.stopped = False
 		self.rules_list = rules_list
 		self.interface = interface
 		self.pcap_file = pcap_file
-
+		self.quiet = quiet
 	def stop(self):
 		self.stopped = True
 
@@ -26,8 +26,8 @@ class Sniffer(Thread):
 			if (matched):
 				message = log(rule, packet)
 				logging.warning(message)
-
-				console(rule,packet)
+				if not self.quiet:
+					console(rule,packet)
 
 
 	def run(self):

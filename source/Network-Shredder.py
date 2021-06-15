@@ -36,20 +36,26 @@ def main():
 
 	print(colored("[+] Finished Processing Rules File "+rules_file+"...", "green"))
 
-	
-	if pcap_file == None:
-		sniffer = Sniffer(rules_list=rules_list,interface=interface,pcap_file=None)
-		sniffer.start()
+	if arg.quiet:
+		if pcap_file == None:
+			sniffer = Sniffer(rules_list=rules_list,interface=interface,pcap_file=None,quiet=True)
+			sniffer.start()
 
+		else:
+			sniffer = Sniffer(rules_list=rules_list,pcap_file=pcap_file,interface=None,quiet=True)
+			sniffer.start()
 	else:
-		sniffer = Sniffer(rules_list=rules_list,pcap_file=pcap_file,interface=None)
-		sniffer.start()
-	
+		if pcap_file == None:
+			sniffer = Sniffer(rules_list=rules_list,interface=interface,pcap_file=None,quiet=False)
+			sniffer.start()
+
+		else:
+			sniffer = Sniffer(rules_list=rules_list,pcap_file=pcap_file,interface=None,quiet=False)
+			sniffer.start()
 
 	if arg.web:
 		print(colored("[+] You Can Access The Web Interface Via : ","yellow")+colored("http://127.0.0.1:5000/logs","green"))
 		check_call(['/usr/bin/python3','web.py','-a',filename],stdout=DEVNULL, stderr=STDOUT)
-		
 
 
 
@@ -70,6 +76,7 @@ def args_parser():
 	parser.add_argument('--logdir',  help='Log Directory (FULL PATH) e.g: /path/to/log/')
 	parser.add_argument('--interface', help='Sniff Interface (e.g: tun0)')
 	parser.add_argument('--web', help='Show Logs In Web Interface', action="store_true")
+	parser.add_argument('--quiet', help='Quiet Mode', action="store_true")
 	return parser.parse_args()
 
 main()
