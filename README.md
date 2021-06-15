@@ -4,7 +4,7 @@ Network Shredder IDS
 # TODO LIST
 
 + PCAP Mod : DONE
-- Design Console 
++ Design Console : DONE
 + Web Application (Table (matched packet, rule)) : DONE
 - Create the report
 - Customize the options and Customize the rules to detect attacks such as arp spoofing, ddos,...
