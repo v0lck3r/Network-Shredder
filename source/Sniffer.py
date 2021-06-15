@@ -24,7 +24,7 @@ class Sniffer(Thread):
 				message = log(rule, packet)
 				logging.warning(message)
 
-				print(colored(message,"green"))
+				console(rule,packet)
 
 
 	def run(self):

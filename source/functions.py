@@ -23,10 +23,8 @@ def match(rule,packet):
 	if not checkIPs(rule,packet):
 		return False
 	if not checkPorts(rule,packet):
-		print("lmochklil f ports")
 		return False
 	if not checkOptions(rule,packet):
-		print("lmochklil f options")
 		return False
 	return True
 def checkProtocol(rule, packet):
@@ -70,7 +68,6 @@ def checkPorts(rule, packet):
 	elif TCP in packet:
 		srcPort = packet[TCP].sport
 		dstPort = packet[TCP].dport
-		print(contains(rule["SrcPorts"],srcPort),contains(rule["SrcPorts"],srcPort))
 		if contains(rule["SrcPorts"],srcPort) and contains(rule["SrcPorts"],srcPort):
 			check = True
 	return check
@@ -131,8 +128,16 @@ def checkOptions(rule, packet):
 			return False
 	return True
 def log(rule, packet):
-	message = "ALERT"
+	message = " ALERT:\t"
 	if "msg" in rule.keys():
 		message += rule["msg"]+"\n"
 	message += "Rule Matched: \n"+str(rule)+"\n"
+	message += "By Packet: \n"+packet.show(dump=True)+"\n"
 	return message
+
+def console(rule, packet):
+	message = colored("ALERT:","red")+"\t"
+	if "msg" in rule.keys():
+		message += colored(rule["msg"],"cyan")+"\n"
+	message+=colored("Rule Matched:\t","green")+colored(str(rule),"magenta")+"\n"
+	print(message)
