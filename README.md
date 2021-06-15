@@ -6,7 +6,10 @@ Network Shredder IDS
 + PCAP Mod : DONE
 + Design Console : DONE
 + Web Application (Table (matched packet, rule)) : DONE
++ Create a requirement file : DONE
++ Quite mode in condole : DONE
+
+---------
+
 - Create the report
 - Customize the options and Customize the rules to detect attacks such as arp spoofing, ddos,...
-- create a requirement file 
-+ Quite mode in condole : DONE
