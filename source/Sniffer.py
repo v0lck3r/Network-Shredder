@@ -3,10 +3,11 @@ from scapy.all import *
 from functions import *
 import sys
 #sys.tracebacklimit = 0
+import time
 
 class Sniffer(Thread):
 
-	def __init__(self, rules_list, interface, pcap_file, quiet, counters):
+	def __init__(self, rules_list, interface, pcap_file, quiet, counters, timers):
 		Thread.__init__(self)
 		self.stopped = False
 		self.rules_list = rules_list
@@ -14,6 +15,7 @@ class Sniffer(Thread):
 		self.pcap_file = pcap_file
 		self.quiet = quiet
 		self.counters = counters
+		self.timers = timers
 
 	def stop(self):
 		self.stopped = True
@@ -27,12 +29,15 @@ class Sniffer(Thread):
 			matched = match(rule, packet)
 			if (matched):
 				if "count" in rule.keys():
+					if self.counters[c][0] == 0:
+						self.timers[c][0] = int(time.time())
 					self.counters[c][0] += 1
-					if self.counters[c][0]>=self.counters[c][1]:
+					if self.counters[c][0]==self.counters[c][1] and int(time.time())-self.timers[c][0]<=self.timers[c][1]:
 						message = log(rule, packet)
 						logging.warning(message)
 						if not self.quiet:
 							console(rule,packet)
+						self.counters[c][0] = 0
 				else:
 					message = log(rule, packet)
 					logging.warning(message)

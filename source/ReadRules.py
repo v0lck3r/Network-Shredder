@@ -117,9 +117,9 @@ def readrules(file):
 						options = temp[1].replace(')','')
 						options = options.split(';')
 						for option in options:
-							if option.split(":")[0].strip() not in ["msg","tos","ttl","offset","seq","ack","flags","http_request","content","dsize", "count"]:
+							if option.split(":")[0].strip() not in ["msg","tos","ttl","offset","seq","ack","flags","http_request","content","dsize", "count", "time"]:
 								raise ValueError(colored("Invalid rule : incorrect option : '" + option.split(":")[0].strip() + "'.","red"))
-							elif option.split(":")[0].strip() in ["tos","ttl","offset","seq","ack","dsize", "count"]:
+							elif option.split(":")[0].strip() in ["tos","ttl","offset","seq","ack","dsize", "count", "time"]:
 								var = int(option.split(":")[1].strip())
 							d[option.split(":")[0].strip()]=option.split(":")[1].strip().replace('"','')
 					except:

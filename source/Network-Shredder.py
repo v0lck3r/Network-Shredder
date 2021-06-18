@@ -36,25 +36,28 @@ def main():
 
 	print(colored("[+] Finished Processing Rules File "+rules_file+"...", "green"))
 	counter_rules = []
+	timers = []
 	for rule in rules_list:
 		if "count" in rule.keys():
 			counter_rules.append([0,int(rule["count"])])
+		if "time" in rule.keys():
+			timers.append([0,int(rule["time"])])
 
 	if arg.quiet:
 		if pcap_file == None:
-			sniffer = Sniffer(rules_list=rules_list,interface=interface,pcap_file=None,quiet=True, counters=counter_rules)
+			sniffer = Sniffer(rules_list=rules_list,interface=interface,pcap_file=None,quiet=True, counters=counter_rules, timers=timers)
 			sniffer.start()
 
 		else:
-			sniffer = Sniffer(rules_list=rules_list,pcap_file=pcap_file,interface=None,quiet=True, counters=counter_rules)
+			sniffer = Sniffer(rules_list=rules_list,pcap_file=pcap_file,interface=None,quiet=True, counters=counter_rules, timers=timers)
 			sniffer.start()
 	else:
 		if pcap_file == None:
-			sniffer = Sniffer(rules_list=rules_list,interface=interface,pcap_file=None,quiet=False, counters=counter_rules)
+			sniffer = Sniffer(rules_list=rules_list,interface=interface,pcap_file=None,quiet=False, counters=counter_rules, timers=timers)
 			sniffer.start()
 
 		else:
-			sniffer = Sniffer(rules_list=rules_list,pcap_file=pcap_file,interface=None,quiet=False, counters=counter_rules)
+			sniffer = Sniffer(rules_list=rules_list,pcap_file=pcap_file,interface=None,quiet=False, counters=counter_rules, timers=timers)
 			sniffer.start()
 
 	if arg.web:

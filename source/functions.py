@@ -3,7 +3,7 @@ from scapy.all import *
 from termcolor import colored
 import datetime
 from scapy.layers.http import *
-
+import binascii
 def match(rule,packet):
 	if not checkProtocol(rule,packet):
 		return False
@@ -91,7 +91,9 @@ def checkOptions(rule, packet):
 			return False
 		else:
 			for flag in rule["flags"]:
-				packetFlags = packet[TCP].underlayer.sprint("%TCP.flags%")
+				packetFlags = packet[TCP].underlayer.sprintf("%TCP.flags%")
+				if len(packetFlags)==0:
+					packetFlags = "0"
 				if flag not in packetFlags:
 					return False
 	if "offset" in rule.keys():
@@ -104,7 +106,7 @@ def checkOptions(rule, packet):
 		if HTTP in packet:
 			if HTTPRequest in packet:
 				method = packet[HTTPRequest].Method.decode()
-				if rule["http_request"]==method:
+				if rule["http_request"]!=method:
 					return False
 		elif TCP in packet and packet[TCP].payload:
 			http = packet[TCP].payload.show(dump=True).split(' ')
@@ -120,7 +122,7 @@ def checkOptions(rule, packet):
 			payload = packet[UDP].payload
 		data = payload
 		if data:
-			if rule["content"] not in data:
+			if rule["content"] not in str(data):
 				return False
 		else:
 			return False

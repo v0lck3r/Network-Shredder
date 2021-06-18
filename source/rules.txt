@@ -1,1 +1,7 @@
-alert icmp any any -> 8.8.8.8 any (msg: "test"; count: 20)
+alert icmp any any -> any any (msg: "NMAP ping sweep Scan Detected"; dsize: 0)
+alert tcp any any -> any any (msg: "Nmap FIN Scan Detected"; flags: F)
+alert tcp any any -> any any (msg: "Nmap NULL Scan Detected"; flags: 0)
+alert tcp any any -> any any (msg: "DOS Attack: Syn Flood Detected"; flags: S; count: 70; time: 10)
+alert tcp any any -> any 21 (msg: "FTP Login With Root Detected"; content: "USER root")
+alert tcp any any -> any 80 (msg: "Possible Local File Inclusion Detected"; http_request: "GET"; content: "../etc/passwd")
+alert tcp any any -> any 25 (msg: "SMTP User Enumeration Detected"; content: "RCPT")
