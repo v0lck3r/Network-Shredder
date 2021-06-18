@@ -2,20 +2,8 @@ from ipaddress import *
 from scapy.all import *
 from termcolor import colored
 import datetime
+from scapy.layers.http import *
 
-def isHTTP(packet):
-    if (TCP in packet and packet[TCP].payload):
-        http = str(packet[TCP].payload).split('/')
-        if (len(http) >= 1 and http[0].rstrip() == "HTTP"):
-            return True
-            
-        method = str(packet[TCP].payload).split(' ')
-        if (len(method) >= 1 and method[0].rstrip() in ['HEAD', 'GET', 'CONNECT', 'OPTIONS', 'TRACE', 'POST', 'PUT', 'DELETE', 'PATCH']):
-            return True
-        else:
-            return False
-    else:
-        return False
 def match(rule,packet):
 	if not checkProtocol(rule,packet):
 		return False
@@ -28,13 +16,12 @@ def match(rule,packet):
 	return True
 def checkProtocol(rule, packet):
 	check = False
+	if "icmp" == rule["protocol"] and ICMP in packet:
+		check = True
 	if "tcp" == rule["protocol"] and TCP in packet:
 		check = True
 	elif "udp" == rule["protocol"] and UDP in packet:
 		check = True
-	elif "http" == rule["protocol"] and TCP in packet:
-		if isHTTP(packet):
-			check = True
 	return check
 
 def checkIPs(rule, packet):
@@ -60,6 +47,8 @@ def contains(a,b):
 
 def checkPorts(rule, packet):
 	check = False
+	if ICMP in packet:
+		return True
 	if UDP in packet:
 		srcPort = packet[UDP].sport
 		dstPort = packet[UDP].dport
@@ -112,10 +101,13 @@ def checkOptions(rule, packet):
 		else:
 			return False
 	if "http_request" in rule.keys():
-		if not isHTTP(packet):
-			return False
+		if HTTP in packet:
+			if HTTPRequest in packet:
+				method = packet[HTTPRequest].Method.decode()
+				if rule["http_request"]==method:
+					return False
 		elif TCP in packet and packet[TCP].payload:
-			http = str(packet[TCP].payload).split(' ')
+			http = packet[TCP].payload.show(dump=True).split(' ')
 			if len(http)< 1 or http[0] in rule["http_request"]:
 				return False
 		else:
@@ -126,12 +118,17 @@ def checkOptions(rule, packet):
 			payload = packet[TCP].payload
 		elif UDP in packet:
 			payload = packet[UDP].payload
-		if payload:
-			if rule["content"] not in str(payload):
+		data = payload
+		if data:
+			if rule["content"] not in data:
 				return False
 		else:
 			return False
+	if "dsize" in rule.keys():
+		if len(packet[ICMP].payload)!=int(rule["dsize"]):
+			return False
 	return True
+
 def log(rule, packet):
 	message = "ALERT:\t"
 	if "msg" in rule.keys():

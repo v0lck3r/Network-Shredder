@@ -3,16 +3,18 @@ from scapy.all import *
 from functions import *
 import sys
 #sys.tracebacklimit = 0
-class Sniffer(Thread):
-	
 
-	def __init__(self, rules_list, interface, pcap_file, quiet):
+class Sniffer(Thread):
+
+	def __init__(self, rules_list, interface, pcap_file, quiet, counters):
 		Thread.__init__(self)
 		self.stopped = False
 		self.rules_list = rules_list
 		self.interface = interface
 		self.pcap_file = pcap_file
 		self.quiet = quiet
+		self.counters = counters
+
 	def stop(self):
 		self.stopped = True
 
@@ -20,23 +22,35 @@ class Sniffer(Thread):
 		return self.stopped
 
 	def incomingPacket(self, packet):
+		c = 0
 		for rule in self.rules_list:
-
 			matched = match(rule, packet)
 			if (matched):
-				message = log(rule, packet)
-				logging.warning(message)
-				if not self.quiet:
-					console(rule,packet)
+				if "count" in rule.keys():
+					self.counters[c][0] += 1
+					if self.counters[c][0]>=self.counters[c][1]:
+						message = log(rule, packet)
+						logging.warning(message)
+						if not self.quiet:
+							console(rule,packet)
+				else:
+					message = log(rule, packet)
+					logging.warning(message)
+					if not self.quiet:
+						console(rule,packet)
+			if "count" in rule.keys():
+				c += 1
+
+
 
 
 	def run(self):
 		print(colored("[~] Starting Network Sniffing...","blue"))
 		if self.interface == None and self.pcap_file == None:
-			sniff(prn=self.incomingPacket, filter="", store=0, stop_filter=self.stop_filter)
+			sniff(prn=self.incomingPacket, store=0)
 		elif self.pcap_file == None:
 			try:
-				sniff(prn=self.incomingPacket, filter="", store=0, stop_filter=self.stop_filter, iface=self.interface)
+				sniff(prn=self.incomingPacket, store=0, iface=self.interface)
 			except:
 				raise OSError(colored("[!] Interface "+self.interface+" Not Found!", "red"))
 		else:

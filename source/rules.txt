@@ -1,2 +1,1 @@
-alert udp any any -> any any (msg:"udp hhhhhh")
-alert tcp any any -> any any (msg:"tcp hhhhhh")
+alert icmp any any -> 8.8.8.8 any (msg: "test"; count: 20)

@@ -16,7 +16,7 @@ def readrules(file):
 					raise ValueError(colored("Invalid rule : incorrect action : '" + action + "'.","red"))
 				d["action"]="alert"
 				protocol = rule[1]
-				if protocol not in ["tcp","udp","http"]:
+				if protocol not in ["tcp","udp","icmp"]:
 					raise ValueError(colored("Invalid rule : incorrect protocol : '" + protocol + "'.","red"))
 				d["protocol"]=protocol
 				src_ip = rule[2]
@@ -117,9 +117,9 @@ def readrules(file):
 						options = temp[1].replace(')','')
 						options = options.split(';')
 						for option in options:
-							if option.split(":")[0].strip() not in ["msg","tos","ttl","offset","seq","ack","flags","http_request","content"]:
+							if option.split(":")[0].strip() not in ["msg","tos","ttl","offset","seq","ack","flags","http_request","content","dsize", "count"]:
 								raise ValueError(colored("Invalid rule : incorrect option : '" + option.split(":")[0].strip() + "'.","red"))
-							elif option.split(":")[0].strip() in ["tos","ttl","offset","seq","ack"]:
+							elif option.split(":")[0].strip() in ["tos","ttl","offset","seq","ack","dsize", "count"]:
 								var = int(option.split(":")[1].strip())
 							d[option.split(":")[0].strip()]=option.split(":")[1].strip().replace('"','')
 					except:

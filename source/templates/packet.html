@@ -118,8 +118,8 @@ h2 a {
 <img src="{{url_for('static', filename='logo.png')}}" width="200" height="200" style="float:left"/><br />
 <p style="float:left">
 <h1><span class="blue"></span>Network<span class="blue"></span> <span class="yellow">Shredder</span></h1>
-<h2 ><a>Details Of Packet Captured At {{l[0]}}</a></h2>
-<h2><a>For Further Details, Please Check Line {{index}} Of {{filename}}</a></h2></p>
+<h2 ><a>Details Of Packet Captured At</a> <a style="color:yellow">{{l[0]}}</a></h2>
+<h2><a>For Further Details, Please Check Line</a> <a style="color:yellow">{{index}}</a><a> Of </a><a style="color:yellow">{{filename}}</a></h2></p>
 </h4>
 
 
@@ -240,6 +240,27 @@ h2 a {
   <tr style="background-color: #bf5bf5">
     <td>UDP Checksum</td>
     <td>{{l[18]}}</td>
+  </tr>
+    {% elif l[11]=='icmp' %}
+  <tr style="background-color: #bf5bf5">
+    <td>ICMP Type</td>
+    <td>{{l[15]}}</td>
+  </tr>
+  <tr style="background-color: #bf5bf5">
+    <td>ICMP Code</td>
+    <td>{{l[16]}}</td>
+  </tr>
+  <tr style="background-color: #bf5bf5">
+    <td>ICMP Checksum</td>
+    <td>{{l[17]}}</td>
+  </tr>
+  <tr style="background-color: #bf5bf5">
+    <td>ICMP ID</td>
+    <td>{{l[18]}}</td>
+  </tr>
+  <tr style="background-color: #bf5bf5">
+    <td>ICMP Sequence</td>
+    <td>{{l[19]}}</td>
   </tr>
   {% endif %}
 </tbody>
