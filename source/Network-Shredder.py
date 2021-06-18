@@ -9,6 +9,9 @@ from Sniffer import *
 import sys
 #sys.tracebacklimit = 0
 from subprocess import DEVNULL, STDOUT, check_call
+
+
+
 def main():
 
 	now = datetime.datetime.now()
@@ -67,18 +70,22 @@ def main():
 
 
 def print_banner():
+
 	fig = Figlet(font="future")
-	banner = fig.renderText("Network Shredder")
+	banner = fig.renderText("  Network Shredder")
 	print(colored(banner, 'blue'))
-	print(colored("|_ Version : 1.0#beta", 'red'))
-	print(colored("|_ Authors : AOUAJ & RAHALI", 'red'))
-	print(colored("|_ Usage : python3 Network-Shredder.py rules/rules.txt logdir/",'red'))
+	with open("./banner.txt") as f:
+		for line in f:
+			print(colored(line,'magenta',attrs=['blink']),end='')
+	print(colored("|_ Version :", 'red',attrs=['bold']),colored(" 1.0#beta","cyan"))
+	print(colored("|_ Authors :", 'red',attrs=['bold']),colored(" AOUAJ & RAHALI","cyan"))
+	print(colored("|_ Usage :",'red',attrs=['bold']),colored(" python3 Network-Shredder.py rules.txt","cyan"))
 
 
 
 def args_parser():
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--pcap', help='PCAP file (Exclusive for PCAP Mod)')
+	parser.add_argument('--pcap', help='PCAP file (Exclusive for PCAP Mode)')
 	parser.add_argument('file',  help='Rules file')
 	parser.add_argument('--logdir',  help='Log Directory (FULL PATH) e.g: /path/to/log/')
 	parser.add_argument('--interface', help='Sniff Interface (e.g: tun0)')

@@ -13,11 +13,11 @@ def readrules(file):
 			if len(rule) >= 7:
 				action = rule[0]
 				if action != "alert":
-					raise ValueError(colored("Invalid rule : incorrect action : '" + action + "'.","red"))
+					raise ValueError(colored("[!] Invalid Rule : Incorrect  action : '" + action + "'.","red"))
 				d["action"]="alert"
 				protocol = rule[1]
 				if protocol not in ["tcp","udp","icmp"]:
-					raise ValueError(colored("Invalid rule : incorrect protocol : '" + protocol + "'.","red"))
+					raise ValueError(colored("[!] Invalid Rule : Incorrect  protocol : '" + protocol + "'.","red"))
 				d["protocol"]=protocol
 				src_ip = rule[2]
 				try:
@@ -31,7 +31,7 @@ def readrules(file):
 						ip = ip_network(src_ip+"/32")
 						d["SrcIP"]=ip
 				except:
-					raise ValueError(colored("Invalid rule : incorrect source IP : '" + src_ip + "'.","red"))
+					raise ValueError(colored("[!] Invalid Rule : Incorrect  source IP : '" + src_ip + "'.","red"))
 				src_ports = rule[3]
 				valid_ports=False
 				try:
@@ -62,9 +62,9 @@ def readrules(file):
 						d["SrcPorts"]=p
 
 				except:
-					raise ValueError(colored("Invalid rule : incorrect source ports : '" + src_ports + "'.","red"))
+					raise ValueError(colored("[!] Invalid Rule : Incorrect  source ports : '" + src_ports + "'.","red"))
 				if(valid_ports==False):
-					raise ValueError(colored("Invalid rule : incorrect source ports : '" + src_ports + "'.","red"))
+					raise ValueError(colored("[!] Invalid Rule : Incorrect  source ports : '" + src_ports + "'.","red"))
 				dst_ip = rule[5]
 				try:
 					if dst_ip == "any":
@@ -77,7 +77,7 @@ def readrules(file):
 						ip = ip_network(dst_ip+"/32")
 						d["DstIP"]=ip
 				except:
-					raise ValueError(colored("Invalid rule : incorrect destination IP : '" + dst_ip + "'.","red"))
+					raise ValueError(colored("[!] Invalid Rule : Incorrect  destination IP : '" + dst_ip + "'.","red"))
 				dst_ports = rule[6]
 				valid_ports=False
 				try:
@@ -108,9 +108,9 @@ def readrules(file):
 						d["DstPorts"]=p
 
 				except:
-					raise ValueError(colored("Invalid rule : incorrect destination ports : '" + dst_ports + "'.","red"))
+					raise ValueError(colored("[!] Invalid Rule : Incorrect  destination ports : '" + dst_ports + "'.","red"))
 				if(valid_ports==False):
-					raise ValueError(colored("Invalid rule : incorrect destination ports : '" + dst_ports + "'.","red"))
+					raise ValueError(colored("[!] Invalid Rule : Incorrect  destination ports : '" + dst_ports + "'.","red"))
 				temp = line.strip().split("(")
 				if len(temp)==2:
 					try:
@@ -118,14 +118,14 @@ def readrules(file):
 						options = options.split(';')
 						for option in options:
 							if option.split(":")[0].strip() not in ["msg","tos","ttl","offset","seq","ack","flags","http_request","content","dsize", "count", "time"]:
-								raise ValueError(colored("Invalid rule : incorrect option : '" + option.split(":")[0].strip() + "'.","red"))
+								raise ValueError(colored("[!] Invalid Rule : Incorrect  option : '" + option.split(":")[0].strip() + "'.","red"))
 							elif option.split(":")[0].strip() in ["tos","ttl","offset","seq","ack","dsize", "count", "time"]:
 								var = int(option.split(":")[1].strip())
 							d[option.split(":")[0].strip()]=option.split(":")[1].strip().replace('"','')
 					except:
-						raise ValueError(colored("Invalid rule : incorrect options.","red"))
+						raise ValueError(colored("[!] Invalid Rule : Incorrect  options.","red"))
 			else:
-				raise ValueError("Invalid rule : a rule must include mandatory elements : action protocol src_ips src_ports -> dst_ips dst_ports")
+				raise ValueError("[!] Invalid Rule : A rule must include mandatory elements : action protocol srcIPs srcPorts -> dstIPs dstPorts")
 			rulesList.append(d)
 	return rulesList
 
