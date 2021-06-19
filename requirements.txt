@@ -1,13 +1,8 @@
 pyfiglet
 datetime
-argparse
 scapy
 logging
-sys
-subprocess
 ipaddress
 termcolor
-threading
-time
 flask
 flask_table
