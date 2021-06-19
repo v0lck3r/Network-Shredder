@@ -51,5 +51,5 @@ python3 Network-Shredder.py rules.txt --pcap pcap_file.pcap
 ```
 
 
-📫 Credits: 
-***OUSSAMA RAHALI*** & ***OMAR AOUAJ*** @CCSC
+## 📫 Credits: 
+***OUSSAMA RAHALI*** & ***OMAR AOUAJ*** 
