@@ -19,3 +19,26 @@ pip3 install -r requirements.txt
 python3 Network-Shredder.py -h
 ````
 ![](./source/static/shredder.PNG)
+
+## Live mode 
+
+```bash 
+python3 Network-Shredder.py rules.txt --interface tun0
+```
+
+## Start web application 
+
+```bash 
+python3 Network-Shredder.py rules.txt --interface tun0 --web
+```
+
+## Console quite mode 
+
+```bash 
+python3 Network-Shredder.py rules.txt --interface tun0 --web --quite
+```
+## Pcap based detection 
+
+```bash 
+python3 Network-Shredder.py rules.txt --pcap pcap_file.pcap
+```
