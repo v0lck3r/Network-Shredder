@@ -20,32 +20,36 @@ python3 Network-Shredder.py -h
 ````
 ![](./source/static/shredder.PNG)
 
-## Live mode 
+### Live mode 
 
 ```bash 
 python3 Network-Shredder.py rules.txt --interface tun0
 ```
 
-## Start web application 
+### Start web application 
 
 ```bash 
 python3 Network-Shredder.py rules.txt --interface tun0 --web
 ```
 
-## Console quiet mode 
+### Console quiet mode 
 
 ```bash 
 python3 Network-Shredder.py rules.txt --interface tun0 --web --quiet
 ```
 
-## Specify log directory   
+### Specify log directory   
 
 ```bash 
 python3 Network-Shredder.py rules.txt --logdir /tmp/ --interface tun0 --web
 ```
 
-## Pcap based detection 
+### Pcap based detection 
 
 ```bash 
 python3 Network-Shredder.py rules.txt --pcap pcap_file.pcap
 ```
+
+
+📫 Credits: 
+***OUSSAMA RAHALI*** & ***OMAR AOUAJ*** @CCSC
