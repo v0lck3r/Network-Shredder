@@ -1,5 +1,5 @@
 # Network-Shredder
-Network Shredder IDS
+Network-Shredder est un IDS écrit en Python.
 ![](./source/static/logo.png)
 # TODO LIST
 
