@@ -32,11 +32,18 @@ python3 Network-Shredder.py rules.txt --interface tun0
 python3 Network-Shredder.py rules.txt --interface tun0 --web
 ```
 
-## Console quite mode 
+## Console quiet mode 
 
 ```bash 
-python3 Network-Shredder.py rules.txt --interface tun0 --web --quite
+python3 Network-Shredder.py rules.txt --interface tun0 --web --quiet
 ```
+
+## Specify log directory   
+
+```bash 
+python3 Network-Shredder.py rules.txt --logdir /tmp/ --interface tun0 --web
+```
+
 ## Pcap based detection 
 
 ```bash 
