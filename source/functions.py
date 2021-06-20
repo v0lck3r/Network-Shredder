@@ -4,6 +4,8 @@ from termcolor import colored
 import datetime
 from scapy.layers.http import *
 import binascii
+
+
 def match(rule,packet):
 	if not checkProtocol(rule,packet):
 		return False

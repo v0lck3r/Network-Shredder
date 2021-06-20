@@ -2,7 +2,7 @@ from threading import Thread
 from scapy.all import *
 from functions import *
 import sys
-#sys.tracebacklimit = 0
+sys.tracebacklimit = 0
 import time
 
 class Sniffer(Thread):
