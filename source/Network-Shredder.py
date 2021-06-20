@@ -7,8 +7,9 @@ import logging
 from ReadRules import *
 from Sniffer import *
 import sys
-#sys.tracebacklimit = 0
+sys.tracebacklimit = 0
 from subprocess import DEVNULL, STDOUT, check_call
+
 
 
 

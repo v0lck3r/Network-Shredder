@@ -1,7 +1,8 @@
 from ipaddress import *
 from termcolor import colored
 import sys
-#sys.tracebacklimit = 0
+sys.tracebacklimit = 0
+
 
 def readrules(file):
 
